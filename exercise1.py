@@ -64,24 +64,17 @@ class UnknownAttributeException(Exception):
 
 
 def selection(t, f):
-    """
-    Perform select operation on table t that satisfy condition f.
 
-    Example:
-    > R = [["A", "B", "C"], [1, 2, 3], [4, 5, 6]]
-    ># Define function f that returns True iff
-    > # the last element in the row is greater than 3.
-    > def f(row): row[-1] > 3
-    > select(R, f)
-    [["A", "B", "C"], [4, 5, 6]]
-
-    """
+    # new list created as a result
     result = []
     for t_list in t:
+        # if rows are in the t_list after being run through the function, append to result
         if f(t_list):
             result.append(t_list)
-    if len(result) == 1 or len(t_list) == 0:
+    # if the result is none or the header only, return None
+    if len(result) == 1 or len(result) == 0:
         return None
+    # otherwise, return the result after removing any duplicates
     else:
         return remove_duplicates(result)
 
@@ -97,6 +90,10 @@ def projection(t, r):
     [["A", "C"], [1, 3], [4, 6]]
 
     """
+    p_list = []
+    for item in t[0]:
+        if item not in r:
+            x = (t[0].index(item))
 
 
 
