@@ -5,11 +5,35 @@
 This module performs table operations on database tables
 implemented as lists of lists. """
 
-__author__ = 'Susan Sim'
-__email__ = "ses@drsusansim.org"
-__copyright__ = "2015 Susan Sim"
-__license__ = "MIT License"
+__author__ = 'Bertha Chan & Philips Xue'
 
+
+EMPLOYEES = [["Surname", "FirstName", "Age", "Salary"],
+             ["Smith", "Mary", 25, 2000],
+             ["Black", "Lucy", 40, 3000],
+             ["Verdi", "Nico", 36, 4500],
+             ["Smith", "Mark", 40, 3900]]
+
+R1 = [["Employee", "Department"],
+      ["Smith", "sales"],
+      ["Black", "production"],
+      ["White", "production"]]
+
+R2 = [["Department", "Head"],
+      ["production", "Mori"],
+      ["sales", "Brown"]]
+
+
+def filter_employees(row):
+    """
+    Check if employee represented by row
+    is AT LEAST 30 years old and makes
+    MORE THAN 3500.
+    :param row: A List in the format:
+        [{Surname}, {FirstName}, {Age}, {Salary}]
+    :return: True if the row satisfies the condition.
+    """
+    return row[-2] >= 30 and row[-1] > 3500
 
 #####################
 # HELPER FUNCTIONS ##
@@ -52,8 +76,14 @@ def selection(t, f):
     [["A", "B", "C"], [4, 5, 6]]
 
     """
-
-    return []
+    result = []
+    for t_list in t:
+        if f(t_list):
+            result.append(t_list)
+    if len(result) == 1 or len(t_list) == 0:
+        return None
+    else:
+        return remove_duplicates(result)
 
 
 def projection(t, r):
@@ -68,20 +98,23 @@ def projection(t, r):
 
     """
 
+
+
     return []
 
 
-def cross_product(t1, t2):
-    """
-    Return the cross-product of tables t1 and t2.
+# def cross_product(t1, t2):
+#     """
+#     Return the cross-product of tables t1 and t2.
+#
+#     Example:
+#     > R1 = [["A", "B"], [1,2], [3,4]]
+#     > R2 = [["C", "D"], [5,6]]
+#     [["A", "B", "C", "D"], [1, 2, 5, 6], [3, 4, 5, 6]]
+#
+#
+#     """
+#
+#     return []
 
-    Example:
-    > R1 = [["A", "B"], [1,2], [3,4]]
-    > R2 = [["C", "D"], [5,6]]
-    [["A", "B", "C", "D"], [1, 2, 5, 6], [3, 4, 5, 6]]
-
-
-    """
-
-    return []
-
+print(projection(EMPLOYEES, ["Surname", "FirstName"]))
