@@ -39,6 +39,7 @@ def filter_employees(row):
 # HELPER FUNCTIONS ##
 #####################
 
+
 def remove_duplicates(l):
     """
     Removes duplicates from l, where l is a List of Lists.
@@ -80,38 +81,34 @@ def selection(t, f):
 
 
 def projection(t, r):
-    """
-    Perform projection operation on table t
-    using the attributes subset r.
-
-    Example:
-    > R = [["A", "B", "C"], [1, 2, 3], [4, 5, 6]]
-    > projection(R, ["A", "C"])
-    [["A", "C"], [1, 3], [4, 6]]
-
-    """
-    p_list = []
-    for item in t[0]:
-        if item not in r:
-            x = (t[0].index(item))
-
-
-
-    return []
+    result = []
+    matching_attributes_index = []
+    for attribute in r:
+        if attribute not in t[0]:
+            raise UnknownAttributeException("Not in table1 attribute list")
+    for attribute in t[0]:
+        if attribute in r :
+            matching_attributes_index.append(t[0].index(attribute))
+    for row in t:
+        filtered_row = []
+        for index_to_append in matching_attributes_index:
+            filtered_row.append(row[index_to_append])
+        result.append(filtered_row)
+    return result
 
 
-# def cross_product(t1, t2):
-#     """
-#     Return the cross-product of tables t1 and t2.
-#
-#     Example:
-#     > R1 = [["A", "B"], [1,2], [3,4]]
-#     > R2 = [["C", "D"], [5,6]]
-#     [["A", "B", "C", "D"], [1, 2, 5, 6], [3, 4, 5, 6]]
-#
-#
-#     """
-#
-#     return []
+def cross_product(t1, t2):
+    result = []
+    t1_counter = 0
+    result.append(t1[0]+t2[0])
+    for t1_row in t1:
+        t2_counter = 0
+        for t2_row in t2:
+            if t2_counter > 0:
+                if t1_counter > 0:
+                    result.append(t1_row + t2_row)
+            t2_counter += 1
+        t1_counter += 1
+    return result
 
-print(projection(EMPLOYEES, ["Surname", "FirstName"]))
+print(cross_product(R1, R2))
