@@ -145,16 +145,17 @@ def valid_passport_format(passport_number):
     else:
         return False
 
-def valid_visa_format(passport_number):
+def valid_visa_format(visa_code):
     """
-    Checks whether a pasport number is five sets of five alpha-number characters separated by dashes
-    :param passport_number: alpha-numeric string
+    Checks whether a visa code is two groups of five alphanumeric characters
+    :param visa_code: alphanumeric string
     :return: Boolean; True if the format is valid, False otherwise
+
     """
     # store the result of re.match
-    rex = re.match(r'^[a-zA-Z0-9]+(-[a-zA-Z0-9]+)+(-[a-zA-Z0-9]+)+(-[a-zA-Z0-9]+)+(-[a-zA-Z0-9]+)$',passport_number)
-    # valid length must be 29
-    if len(passport_number) == 29:
+    rex = re.match(r'^[a-zA-Z0-9]+(-[a-zA-Z0-9]+)$',visa_code)
+    # valid length must be 11
+    if len(visa_code) == 11:
         # if rex is not None, means there find a match
         if rex is not None:
             return True
@@ -165,11 +166,13 @@ def valid_visa_format(passport_number):
         return False
 
 
-def valid_date_format(date_string):
+def valid_date_format(visa_code):
     """
-    Checks whether a date has the format YYYY-mm-dd in numbers
-    :param date_string: date to be checked
-    :return: Boolean True if the format is valid, False otherwise
+    Checks whether a visa code is two groups of five alphanumeric characters
+    :param visa_code: alphanumeric string
+    :return: Boolean; True if the format is valid, False otherwise
+
     """
+    # store the result of re.match
 
     return False
