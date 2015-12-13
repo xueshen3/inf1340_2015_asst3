@@ -87,10 +87,11 @@ def projection(t, r):
     for attribute in r:
         if attribute not in t[0]:
             raise UnknownAttributeException("Not in table1 attribute list")
-    # Enter the for loop to test and append the attribute
+    # Enter the for loop to append the attribute
     for attribute in t[0]:
         if attribute in r :
             matching_attributes_index.append(t[0].index(attribute))
+    # Enter the for loop to append the attribute into the new row
     for row in t:
         filtered_row = []
         for index_to_append in matching_attributes_index:
@@ -98,12 +99,12 @@ def projection(t, r):
         result.append(filtered_row)
     return result
 
-
 def cross_product(t1, t2):
+    # Create a empty result to store combined table
     result = []
     t1_counter = 0
     result.append(t1[0]+t2[0])
-    # Enter the for loop to match every rwo from two table
+    # Enter the for loop to combine two table into and store them in result
     for t1_row in t1:
         t2_counter = 0
         for t2_row in t2:
