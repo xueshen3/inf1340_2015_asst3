@@ -83,9 +83,11 @@ def selection(t, f):
 def projection(t, r):
     result = []
     matching_attributes_index = []
+    # Enter the for loop to test if the attribute is in table 1
     for attribute in r:
         if attribute not in t[0]:
             raise UnknownAttributeException("Not in table1 attribute list")
+    # Enter the for loop to test and append the attribute
     for attribute in t[0]:
         if attribute in r :
             matching_attributes_index.append(t[0].index(attribute))
@@ -101,6 +103,7 @@ def cross_product(t1, t2):
     result = []
     t1_counter = 0
     result.append(t1[0]+t2[0])
+    # Enter the for loop to match every rwo from two table
     for t1_row in t1:
         t2_counter = 0
         for t2_row in t2:

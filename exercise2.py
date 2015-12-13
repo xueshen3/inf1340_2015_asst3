@@ -57,13 +57,25 @@ def decide(input_file, countries_file):
 
     :param input_file: The name of a JSON formatted file that contains
         cases to decide
+    :param watchlist_file: The name of a JSON formatted file that
+        contains names and passport numbers on a watchlist
     :param countries_file: The name of a JSON formatted file that contains
         country data, such as whether an entry or transit visa is required,
         and whether there is currently a medical advisory
     :return: List of strings. Possible values of strings are:
         "Accept", "Reject", and "Quarantine"
     """
-
+    # open the json file to read and store date then close right away
+    with open(input_file) as json_file1:
+        input_data = json.load(json_file1)
+        json_file1.close()
+    with open(countries_file) as json_file2:
+        country_data = json.load(json_file2)
+        json_file2.close()
+    res_list = []
+    for i in input_data:
+        # create a temparary list to append temperary decision
+        tem_list = []
     return ["Reject"]
 
 
