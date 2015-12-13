@@ -93,7 +93,7 @@ def decide(input_file, countries_file):
             tem_list.append("Rejected")
         # check whether is from KAN
             if i['home']['country'].upper() == "KAN":
-            tem_list.append("Accepted")
+                tem_list.append("Accepted")
         # if the reason for entry is to visit and the visitor has a passport from a country from which a visitor visa is required, the traveller must have a valid visa. A valid visa is one that is less than two years old.
         if i['entry_reason'].lower() == 'visit' and country_data[i['from']['conutry']]["visitor_visa_required"] is '1':
             if valid_visa_format(i["visa"]["code"]) and is_more_than_x_years_ago(2,i["visa"]["date"]):
@@ -132,16 +132,37 @@ def valid_passport_format(passport_number):
     :param passport_number: alpha-numeric string
     :return: Boolean; True if the format is valid, False otherwise
     """
-    return False
+    # store the result of re.match
+    rex = re.match(r'^[a-zA-Z0-9]+(-[a-zA-Z0-9]+)+(-[a-zA-Z0-9]+)+(-[a-zA-Z0-9]+)+(-[a-zA-Z0-9]+)$',passport_number)
+    # valid length must be 29
+    if len(passport_number) == 29:
+        # if rex is not None, means there find a match
+        if rex is not None:
+            return True
+        # it is None then return False
+        else:
+            return False
+    else:
+        return False
 
-
-def valid_visa_format(visa_code):
+def valid_visa_format(passport_number):
     """
-    Checks whether a visa code is two groups of five alphanumeric characters
-    :param visa_code: alphanumeric string
+    Checks whether a pasport number is five sets of five alpha-number characters separated by dashes
+    :param passport_number: alpha-numeric string
     :return: Boolean; True if the format is valid, False otherwise
-
     """
+    # store the result of re.match
+    rex = re.match(r'^[a-zA-Z0-9]+(-[a-zA-Z0-9]+)+(-[a-zA-Z0-9]+)+(-[a-zA-Z0-9]+)+(-[a-zA-Z0-9]+)$',passport_number)
+    # valid length must be 29
+    if len(passport_number) == 29:
+        # if rex is not None, means there find a match
+        if rex is not None:
+            return True
+        # it is None then return False
+        else:
+            return False
+    else:
+        return False
 
 
 def valid_date_format(date_string):
