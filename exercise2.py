@@ -76,6 +76,22 @@ def decide(input_file, countries_file):
     for i in input_data:
         # create a temparary list to append temperary decision
         tem_list = []
+        # check the traveller is coming from with a medical advisory
+        if i['from']['country'] in country_data:
+            if country_data[i['from']['country']]["medical_advisory"] is not '':
+                tem_list.append("Quarantine")
+        # check the traveller is through with a medical advisory
+        if i['home']['country'] in country_data:
+            if country_data[i['home']['country']]["medical_advisory"] is not '':
+                tem_list.append("Quarantine")
+        # check the information whether is complete
+        if ('' in i.values()) and ('' == i['from']['country']) and ('' == i['home']['country']):
+            tem_list.append("Rejected")
+        if valid_date_format(i["birth_date"]) is False:
+            tem_list.append("Rejected")
+        if valid_passport_format(i["passport"]) is False:
+            tem_list.append("Rejected")
+        # check whether is from KAN
     return ["Reject"]
 
 
