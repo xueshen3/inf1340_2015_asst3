@@ -92,7 +92,38 @@ def decide(input_file, countries_file):
         if valid_passport_format(i["passport"]) is False:
             tem_list.append("Rejected")
         # check whether is from KAN
-    return ["Reject"]
+            if i['home']['country'].upper() == "KAN":
+            tem_list.append("Accepted")
+        # if the reason for entry is to visit and the visitor has a passport from a country from which a visitor visa is required, the traveller must have a valid visa. A valid visa is one that is less than two years old.
+        if i['entry_reason'].lower() == 'visit' and country_data[i['from']['conutry']]["visitor_visa_required"] is '1':
+            if valid_visa_format(i["visa"]["code"]) and is_more_than_x_years_ago(2,i["visa"]["date"]):
+                tem_list.append("Accepted")
+            else:
+                tem_list.append("Rejected")
+        # call helper funtion base on pority to make the final dicision
+        decide_helper(res_list,tem_list)
+
+    return res_list
+
+def decide_helper(res_list, tem_list):
+    """
+    Decides whether a traveller's entry into Kanadia
+
+    :param res_list: The result list pass for storing the final decision of each traverller
+    :param tem_list: The decision(s) for each traverller base on the rules
+    :return: List of strings. Possible values of strings are:
+        "Accept", "Reject", and "Quarantine"
+    """
+    for j in tem_list:
+        # if first element is "Qurarantine" then return and store "Qurarantine"
+        if j is "Quarantine":
+            return res_list.append("Quarantine")
+        # if first element is "Rejected" then return and store "Rejected"
+        elif j is "Rejected":
+            return res_list.append("Rejected")
+        # if first element is "Accepted" then return and store "Accepted"
+        else:
+            return res_list.append("Accepted")
 
 
 def valid_passport_format(passport_number):
