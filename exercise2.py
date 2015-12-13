@@ -166,13 +166,24 @@ def valid_visa_format(visa_code):
         return False
 
 
-def valid_date_format(visa_code):
+def valid_date_format(date_string):
     """
-    Checks whether a visa code is two groups of five alphanumeric characters
-    :param visa_code: alphanumeric string
-    :return: Boolean; True if the format is valid, False otherwise
-
+    Checks whether a date has the format YYYY-mm-dd in numbers
+    :param date_string: date to be checked
+    :return: Boolean True if the format is valid, False otherwise
     """
-    # store the result of re.match
-
-    return False
+    for i in range(len(date_string)):
+        # the index = 4 must be a dash
+        if i == 4:
+            if date_string[i] is not '-':
+                return False
+        # the index = 7 must be a dash
+        elif i == 7:
+            if date_string[i] is not '-':
+                return False
+        # else check whether the sysbol is numberic
+        else:
+            if date_string[i].isnumeric() == False:
+                return False
+    # all condition satisfied, return true
+    return True
