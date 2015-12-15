@@ -153,6 +153,9 @@ def valid_record(record):
         return False
     elif not record['passport']:
         return False
+    elif record.has_key('visa') is True:
+        if valid_visa_format(record['visa']['code']) is False or valid_date_format(record['visa']['date']) is False:
+            return False
     else:
         result = valid_passport_format(record['passport'])and valid_date_format(record['birth_date'])
         return result
