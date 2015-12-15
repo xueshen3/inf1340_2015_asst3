@@ -160,9 +160,9 @@ def valid_record(record):
 
 def decide(input_file, countries_file):
     with open(input_file) as data_file:
-       cases = json.load(data_file)
+        cases = json.load(data_file)
     with open(countries_file) as data_file:
-       countries = json.load(data_file)
+        countries = json.load(data_file)
     decisions = ['Quarantine','Reject', 'Accept']
     result = []
     for case in cases:
@@ -173,7 +173,7 @@ def decide(input_file, countries_file):
             continue
 
         #Check which country coming back from
-        departure_country = case['from']['country']
+        departure_country = case['from']['country'].upper()
         #The country is not in the dictionary, REJECT traveller
         if countries.has_key(departure_country) is False:
             result.append(decisions[1])
@@ -182,7 +182,7 @@ def decide(input_file, countries_file):
         #via country is unknow REJECT
         #Check is there is medical advisory
         if case.has_key('via') is True:
-            via_country = case['via']['country']
+            via_country = case['via']['country'].upper()
             if countries.has_key(via_country) is True:
                 via_medical_advisory = countries[via_country]['medical_advisory']
             else:
