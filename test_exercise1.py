@@ -23,6 +23,11 @@ EMPLOYEES = [["Surname", "FirstName", "Age", "Salary"],
 
 EMPLOYEES_EMPTY = [["Surname", "FirstName," "Age", "Salary"]]
 
+MANAGERS = [["Number", "Surname", "Age"],
+        [2200, "Rob",35],
+        ["Surname", "Katherine", 44],
+        [3984, "Sara", 22]]
+
 R1 = [["Employee", "Department"],
       ["Smith", "sales"],
       ["Black", "production"],
@@ -33,6 +38,7 @@ R2 = [["Department", "Head"],
       ["sales", "Brown"]]
 
 EMPTY = []
+
 
 #####################
 # HELPER FUNCTIONS ##
@@ -73,6 +79,7 @@ def test_selection():
               ["Smith", "Mark", 40, 3900]]
 
     assert is_equal(result, selection(EMPLOYEES, filter_employees))
+    assert selection(MANAGERS, filter_employees) is None
 
 
 def test_selection_empty_list():
@@ -92,8 +99,14 @@ def test_projection():
               ["Black", "Lucy"],
               ["Verdi", "Nico"],
               ["Smith", "Mark"]]
+    result_2 = [["Surname"],
+                ["Smith"],
+                ["Black"],
+                ["Verdi"],
+                ["Smith"]]
 
     assert is_equal(result, projection(EMPLOYEES, ["Surname", "FirstName"]))
+    assert is_equal(result_2, projection(EMPLOYEES, ["Surname"]))
 
 
 def test_projection_error():
