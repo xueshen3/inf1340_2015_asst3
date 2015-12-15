@@ -1,13 +1,13 @@
-#!/usr/bin/env python3
-
 """ Assignment 3, Exercise 2, INF1340, Fall, 2015. Kanadia
 
 Computer-based immigration office for Kanadia
 
 """
 
-__author__ = "Bertha Chan & Philips Xue"
-__copyright__ = "2015 INF 1340 Assignment 3"
+__author__ = 'Susan Sim'
+__email__ = "ses@drsusansim.org"
+__copyright__ = "2015 Susan Sim"
+__license__ = "MIT License"
 
 import re
 import datetime
@@ -57,6 +57,8 @@ def decide(input_file, countries_file):
 
     :param input_file: The name of a JSON formatted file that contains
         cases to decide
+    :param watchlist_file: The name of a JSON formatted file that
+        contains names and passport numbers on a watchlist
     :param countries_file: The name of a JSON formatted file that contains
         country data, such as whether an entry or transit visa is required,
         and whether there is currently a medical advisory
@@ -72,7 +74,7 @@ def decide(input_file, countries_file):
         json_file2.close()
     res_list = []
     for i in input_data:
-        # create a temporary list to append temporary decision
+        # create a temparary list to append temperary decision
         tem_list = []
         # check the traveller is coming from with a medical advisory
         if i['from']['country'] in country_data:
@@ -90,32 +92,30 @@ def decide(input_file, countries_file):
         if valid_passport_format(i["passport"]) is False:
             tem_list.append("Rejected")
         # check whether is from KAN
-            if i['home']['country'].upper() == "KAN":
-                tem_list.append("Accepted")
-        # check if the reason for entry is to visit and requires valid visa
-        # A valid visa is one that is less than two years old.
+        if i['home']['country'].upper() == "KAN":
+            tem_list.append("Accepted")
+        # if the reason for entry is to visit and the visitor has a passport from a country from which a visitor visa is required, the traveller must have a valid visa. A valid visa is one that is less than two years old.
         if i['entry_reason'].lower() == 'visit' and country_data[i['from']['conutry']]["visitor_visa_required"] is '1':
             if valid_visa_format(i["visa"]["code"]) and is_more_than_x_years_ago(2,i["visa"]["date"]):
                 tem_list.append("Accepted")
             else:
                 tem_list.append("Rejected")
-        # call helper function base on priority to make the final decision
+        # call helper funtion base on pority to make the final dicision
         decide_helper(res_list,tem_list)
-
+        
     return res_list
-
 
 def decide_helper(res_list, tem_list):
     """
-    Decides whether a traveller's entry into Kanadia
+    Decides whether a traveller's entry into Kanadia 
 
-    :param res_list: The result list pass for storing the final decision of each traveller
-    :param tem_list: The decision(s) for each traveller base on the rules
+    :param res_list: The result list pass for storing the final decision of each traverller
+    :param tem_list: The decision(s) for each traverller base on the rules
     :return: List of strings. Possible values of strings are:
         "Accept", "Reject", and "Quarantine"
     """
     for j in tem_list:
-        # if first element is "Quarantine" then return and store "Quarantine"
+        # if first element is "Qurarantine" then return and store "Qurarantine"
         if j is "Quarantine":
             return res_list.append("Quarantine")
         # if first element is "Rejected" then return and store "Rejected"
@@ -123,18 +123,17 @@ def decide_helper(res_list, tem_list):
             return res_list.append("Rejected")
         # if first element is "Accepted" then return and store "Accepted"
         else:
-            return res_list.append("Accepted")
-
+            return res_list.append("Accepted")    
 
 def valid_passport_format(passport_number):
     """
-    Checks whether a passport number is five sets of five alpha-number characters separated by dashes
+    Checks whether a pasport number is five sets of five alpha-number characters separated by dashes
     :param passport_number: alpha-numeric string
     :return: Boolean; True if the format is valid, False otherwise
     """
-    # store the result of re.match
+    # store the result of re.match 
     rex = re.match(r'^[a-zA-Z0-9]+(-[a-zA-Z0-9]+)+(-[a-zA-Z0-9]+)+(-[a-zA-Z0-9]+)+(-[a-zA-Z0-9]+)$',passport_number)
-    # valid length must be 29
+    # valid length must be 29 
     if len(passport_number) == 29:
         # if rex is not None, means there find a match
         if rex is not None:
@@ -144,6 +143,7 @@ def valid_passport_format(passport_number):
             return False
     else:
         return False
+    
 
 
 def valid_visa_format(visa_code):
@@ -153,7 +153,7 @@ def valid_visa_format(visa_code):
     :return: Boolean; True if the format is valid, False otherwise
 
     """
-    # store the result of re.match
+    # store the result of re.match 
     rex = re.match(r'^[a-zA-Z0-9]+(-[a-zA-Z0-9]+)$',visa_code)
     # valid length must be 11
     if len(visa_code) == 11:
@@ -165,6 +165,7 @@ def valid_visa_format(visa_code):
             return False
     else:
         return False
+
 
 
 def valid_date_format(date_string):
@@ -182,9 +183,10 @@ def valid_date_format(date_string):
         elif i == 7:
             if date_string[i] is not '-':
                 return False
-        # else check whether the symbol is numeric
+        # else check whether the sysbol is numberic 
         else:
             if date_string[i].isnumeric() == False:
                 return False
     # all condition satisfied, return true
     return True
+
