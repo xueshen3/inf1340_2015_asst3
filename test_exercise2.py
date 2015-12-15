@@ -5,7 +5,6 @@
 __author__ = "Bertha Chan & Philips Xue"
 __copyright__ = "2015 INF 1340 Assignment 3"
 
-__status__ = "Prototype"
 
 # imports one per line
 import pytest
@@ -23,3 +22,7 @@ def test_returning():
     assert decide("test_returning_citizen.json", "countries.json") ==\
         ["Accept", "Accept", "Quarantine"]
 
+
+# def test_valid_visa():
+#     assert decide("test_valid_visa.json", "countries.json") ==\
+#         ["Accept"]
