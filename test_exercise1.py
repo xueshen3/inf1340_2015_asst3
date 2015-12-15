@@ -37,6 +37,10 @@ R2 = [["Department", "Head"],
       ["production", "Mori"],
       ["sales", "Brown"]]
 
+R3 = [["A", "B"]]
+
+R4 = [["G", "H"]]
+
 EMPTY = []
 
 
@@ -107,6 +111,7 @@ def test_projection():
 
     assert is_equal(result, projection(EMPLOYEES, ["Surname", "FirstName"]))
     assert is_equal(result_2, projection(EMPLOYEES, ["Surname"]))
+    assert projection(R3, []) is None
 
 
 def test_projection_error():
@@ -130,6 +135,7 @@ def test_cross_product():
               ["White", "production", "sales", "Brown"]]
 
     assert is_equal(result, cross_product(R1, R2))
+    assert cross_product(R3, R4) is None
 
 
 def test_cross_product_error():
