@@ -163,9 +163,9 @@ def valid_record(record):
 
 def decide(input_file, countries_file):
     with open(input_file) as data_file:
-        cases = json.load(data_file)
+       cases = json.load(data_file)
     with open(countries_file) as data_file:
-        countries = json.load(data_file)
+       countries = json.load(data_file)
     decisions = ['Quarantine','Reject', 'Accept']
     result = []
     for case in cases:
@@ -183,15 +183,16 @@ def decide(input_file, countries_file):
             continue
 
         #via country is unknow REJECT
-        #Check is there is medical advisory
         if case.has_key('via') is True:
             via_country = case['via']['country'].upper()
             if countries.has_key(via_country) is True:
+                #Check is there is medical advisory in via country
                 via_medical_advisory = countries[via_country]['medical_advisory']
             else:
                 #print 'Reject via'
                 result.append(decisions[1])
                 continue
+
         #fetch requirements of entry
         visitor_visa_required = countries[departure_country]['visitor_visa_required']
         transit_visa_required = countries[departure_country]['transit_visa_required']
@@ -216,12 +217,6 @@ def decide(input_file, countries_file):
         if visitor_visa_required == '1' or transit_visa_required == '1':
             #check visa formatting if wrong REJECT
             if case.has_key('visa') is True:
-                if valid_visa_format(case['visa']['code']) is False or valid_date_format(case['visa']['date']) is False :
-                    #print 'Reject visa'
-                    result.append(decisions[1])
-                    continue
-
-                else:
                     if is_more_than_x_years_ago(2,case['visa']['date']) is True:
                         #print 'visa outdated'
                         result.append(decisions[1])
@@ -231,4 +226,3 @@ def decide(input_file, countries_file):
         result.append(decisions[2])
 
     return result
-
