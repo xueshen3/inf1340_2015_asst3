@@ -126,26 +126,6 @@ def decide_helper(res_list, tem_list):
             return res_list.append("Accepted")
 
 
-def valid_passport_format(passport_number):
-    """
-    Checks whether a passport number is five sets of five alpha-number characters separated by dashes
-    :param passport_number: alpha-numeric string
-    :return: Boolean; True if the format is valid, False otherwise
-    """
-    # store the result of re.match
-    rex = re.match(r'^[a-zA-Z0-9]+(-[a-zA-Z0-9]+)+(-[a-zA-Z0-9]+)+(-[a-zA-Z0-9]+)+(-[a-zA-Z0-9]+)$',passport_number)
-    # valid length must be 29
-    if len(passport_number) == 29:
-        # if rex is not None, means there find a match
-        if rex is not None:
-            return True
-        # it is None then return False
-        else:
-            return False
-    else:
-        return False
-
-
 def valid_visa_format(visa_code):
     """
     Checks whether a visa code is two groups of five alphanumeric characters
@@ -153,16 +133,36 @@ def valid_visa_format(visa_code):
     :return: Boolean; True if the format is valid, False otherwise
 
     """
-    # store the result of re.match
-    rex = re.match(r'^[a-zA-Z0-9]+(-[a-zA-Z0-9]+)$',visa_code)
-    # valid length must be 11
-    if len(visa_code) == 11:
-        # if rex is not None, means there find a match
-        if rex is not None:
-            return True
-        # it is None then return False
-        else:
-            return False
+    # counter for valid substring
+    substring_counter = 0
+    # Check each substring separated by "-"
+    for substring in visa_code.split('-'):
+        substring.strip()
+        # if substring is alphanumereic and have five characters increase the substring_counter
+        if substring.isalnum() and len(substring) == 5:
+            substring_counter += 1
+    if substring_counter == 2:
+        return True
+    else:
+        return False
+
+
+def valid_passport_format(passport_number):
+    """
+    Checks whether a passport number is five sets of five alpha-number characters separated by dashes
+    :param passport_number: alpha-numeric string
+    :return: Boolean; True if the format is valid, False otherwise
+    """
+    counter = 0
+    # Check each substring separated by "-" if its alphanumeric
+    for x in passport_number.split('-'):
+        x.strip()
+        if x.isalnum() and len(x) == 5:
+            # Increase counter if one set is valid
+            counter += counter + 1
+    # If counter is 5 then it must be a valid format
+    if counter == 5:
+        return True
     else:
         return False
 
@@ -173,18 +173,17 @@ def valid_date_format(date_string):
     :param date_string: date to be checked
     :return: Boolean True if the format is valid, False otherwise
     """
-    for i in range(len(date_string)):
-        # the index = 4 must be a dash
-        if i == 4:
-            if date_string[i] is not '-':
-                return False
-        # the index = 7 must be a dash
-        elif i == 7:
-            if date_string[i] is not '-':
-                return False
-        # else check whether the symbol is numeric
-        else:
-            if date_string[i].isnumeric() == False:
-                return False
-    # all condition satisfied, return true
-    return True
+    substring_counter = 0
+    for substring in date_string.split('-'):
+        substring.strip()
+        if substring.isdigit():
+            if substring_counter == 0 and len(substring) == 4:
+                substring_counter += 1
+            elif substring_counter > 0 and len(substring) == 2:
+                substring_counter += 1
+            else:
+                break
+    if substring_counter == 3:
+        return True
+    else:
+        return False
