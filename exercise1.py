@@ -65,6 +65,9 @@ def selection(t, f):
 
 
 def projection(t, r):
+    #Check if t or r are empty list
+    if not t or not r:
+        return None
     result = []
     matching_attributes_index = []
     # Enter the for loop to test if the attribute is in table 1
