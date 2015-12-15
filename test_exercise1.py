@@ -9,7 +9,7 @@ Test module for exercise3.py
 __author__ = 'Bertha Chan & Philips Xue'
 
 
-from exercise1 import selection, projection, cross_product
+from exercise1 import selection, projection, cross_product, UnknownAttributeException
 
 ###########
 # TABLES ##
@@ -21,6 +21,8 @@ EMPLOYEES = [["Surname", "FirstName", "Age", "Salary"],
              ["Verdi", "Nico", 36, 4500],
              ["Smith", "Mark", 40, 3900]]
 
+EMPLOYEES_EMPTY = [["Surname", "FirstName," "Age", "Salary"]]
+
 R1 = [["Employee", "Department"],
       ["Smith", "sales"],
       ["Black", "production"],
@@ -30,6 +32,7 @@ R2 = [["Department", "Head"],
       ["production", "Mori"],
       ["sales", "Brown"]]
 
+Empty = []
 
 #####################
 # HELPER FUNCTIONS ##
@@ -60,7 +63,6 @@ def filter_employees(row):
 ###################
 # TEST FUNCTIONS ##
 ###################
-
 def test_selection():
     """
     Test select operation.
@@ -71,6 +73,13 @@ def test_selection():
               ["Smith", "Mark", 40, 3900]]
 
     assert is_equal(result, selection(EMPLOYEES, filter_employees))
+
+
+def test_selection_empty_list():
+    """
+    Return None for an empty table
+    """
+    assert selection(EMPLOYEES_EMPTY, filter_employees) is None
 
 
 def test_projection():
@@ -87,6 +96,13 @@ def test_projection():
     assert is_equal(result, projection(EMPLOYEES, ["Surname", "FirstName"]))
 
 
+def test_projection_error():
+    try:
+        projection(EMPLOYEES, ["No_Name"])
+    except UnknownAttributeException:
+        assert True
+
+
 def test_cross_product():
     """
     Test cross product operation.
@@ -101,3 +117,11 @@ def test_cross_product():
               ["White", "production", "sales", "Brown"]]
 
     assert is_equal(result, cross_product(R1, R2))
+
+
+def test_cross_product_error():
+    try:
+        projection(R1, Empty)
+    except UnknownAttributeException:
+        assert True
+
