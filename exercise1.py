@@ -98,4 +98,7 @@ def cross_product(t1, t2):
                     result.append(t1_row + t2_row)
             t2_counter += 1
         t1_counter += 1
-    return result
+    if len(result) == 1:
+        return None
+    else:
+        return result
