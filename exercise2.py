@@ -149,7 +149,7 @@ def valid_visa_format(visa_code):
 
 def valid_passport_format(passport_number):
     """
-    Checks whether a passport number is five sets of five alpha-number characters separated by dashes
+    Checks whether a pasport number is five sets of five alpha-number characters separated by dashes
     :param passport_number: alpha-numeric string
     :return: Boolean; True if the format is valid, False otherwise
     """
@@ -159,7 +159,7 @@ def valid_passport_format(passport_number):
         x.strip()
         if x.isalnum() and len(x) == 5:
             # Increase counter if one set is valid
-            counter += counter + 1
+            counter += 1
     # If counter is 5 then it must be a valid format
     if counter == 5:
         return True
