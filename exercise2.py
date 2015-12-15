@@ -138,27 +138,94 @@ def valid_date_format(date_string):
 #####################
 
 
-def decide(input_file, countries_file):
-    """
-    Decides whether a traveller's entry into Kanadia should be accepted
+def valid_record(record):
+    if not record['first_name']:
+        return False
+    elif not record['last_name']:
+        return False
+    elif not record['home']:
+        return False
+    elif not record['entry_reason']:
+        return False
+    elif not record['birth_date']:
+        return False
+    elif not record['from']:
+        return False
+    elif not record['passport']:
+        return False
+    else:
+        result = valid_passport_format(record['passport'])and valid_date_format(record['birth_date'])
+        return result
 
-    :param input_file: The name of a JSON formatted file that contains
-        cases to decide
-    :param countries_file: The name of a JSON formatted file that contains
-        country data, such as whether an entry or transit visa is required,
-        and whether there is currently a medical advisory
-    :return: List of strings. Possible values of strings are:
-        "Accept", "Reject", and "Quarantine"
-    """
+
+def decide(input_file, countries_file):
     with open(input_file) as data_file:
-        cases = json.load(data_file)
+       cases = json.load(data_file)
     with open(countries_file) as data_file:
-        countries = json.load(data_file)
-    decisions = ['Reject', 'Accept', 'Quarantine']
+       countries = json.load(data_file)
+    decisions = ['Quarantine','Reject', 'Accept']
     result = []
     for case in cases:
-        print case
+        via_medical_advisory= ""
+        #Check if record is completed if not REJECT
+        if valid_record(case) is False:
+            result.append(decisions[1])
+            continue
+
+        #Check which country coming back from
+        departure_country = case['from']['country']
+        #The country is not in the dictionary, REJECT traveller
+        if countries.has_key(departure_country) is False:
+            result.append(decisions[1])
+            continue
+
+        #via country is unknow REJECT
+        #Check is there is medical advisory
+        if case.has_key('via') is True:
+            via_country = case['via']['country']
+            if countries.has_key(via_country) is True:
+                via_medical_advisory = countries[via_country]['medical_advisory']
+            else:
+                #print 'Reject via'
+                result.append(decisions[1])
+                continue
+        #fetch requirements of entry
+        visitor_visa_required = countries[departure_country]['visitor_visa_required']
+        transit_visa_required = countries[departure_country]['transit_visa_required']
+        medical_advisory = countries[departure_country]['medical_advisory']
+
+        #check if home country
+        if case['home']['country'].upper() == "KAN" and case['entry_reason'].lower() == "returning":
+            if medical_advisory or via_medical_advisory:
+                result.append(decisions[0])
+                continue
+            else:
+                result.append(decisions[2])
+                continue
+
+        #check is medical advisory is needed
+        if medical_advisory or via_medical_advisory:
+            #print "Quarantine"
+            result.append(decisions[0])
+            continue
+
+        #Check if visa is required
+        if visitor_visa_required == '1' or transit_visa_required == '1':
+            #check visa formatting if wrong REJECT
+            if case.has_key('visa') is True:
+                if valid_visa_format(case['visa']['code']) is False or valid_date_format(case['visa']['date']) is False :
+                    #print 'Reject visa'
+                    result.append(decisions[1])
+                    continue
+
+                else:
+                    if is_more_than_x_years_ago(2,case['visa']['date']) is True:
+                        #print 'visa outdated'
+                        result.append(decisions[1])
+                        continue
+
+        #print "accept"
+        result.append(decisions[2])
 
     return result
-
 
