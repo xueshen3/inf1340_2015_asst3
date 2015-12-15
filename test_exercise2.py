@@ -12,7 +12,7 @@ import os
 from exercise2 import *
 
 DIR = os.getcwd()
-DIR += "/test_jsons/"
+DIR += "/test_jsons"
 os.chdir(DIR)
 
 
@@ -25,21 +25,29 @@ def test_returning():
 
 
 def test_medical_advisory():
+
+    # Check if traveller is coming from or travelling via a country with a medical advisory
     assert decide("test_medical_advisory.json", "countries.json") ==\
        ["Quarantine", "Accept", "Quarantine"]
 
-# def test_case_sensitivity():
-#     """
-#     Travellers are returning to KAN. Country code and passport number correctness is checked.
-#     """
-#     assert decide("test_returning_citizen_2.json", "countries.json") ==\
-#         ["Accept", "Accept", "Quarantine"]
+
+def test_lowercase():
+
+    # Country code and passport in lowercase should not be rejected
+    assert decide("test_returning_citizen_2.json", "countries.json") ==\
+        ["Accept", "Accept", "Quarantine"]
+
+
+def test_location_check():
+
+    # If country does not exist, reject entry
+    assert decide("test_location_check.json", "countries.json") ==\
+        ["Reject", "Accept", "Reject"]
 
 
 def test_valid_date_format():
-    """
-    Checks date, must be in format yyyy-mm-dd & in numbers
-    """
+
+    # Checks date, must be in format yyyy-mm-dd & in numbers
     assert (valid_date_format('')) == False
     assert (valid_date_format('March 06,1999')) == False
     assert (valid_date_format('2011.02.02')) == False
@@ -66,4 +74,5 @@ def test_visa_format():
     # Invalid visa format
     assert valid_visa_format("xsmvA") == False
     assert valid_visa_format("&*&%f-fid92") == False
-    assert valid_visa_format('') == False
+    assert valid_visa_format("") == False
+    assert valid_visa_format("93624768726") == False
