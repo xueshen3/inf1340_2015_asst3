@@ -32,7 +32,7 @@ R2 = [["Department", "Head"],
       ["production", "Mori"],
       ["sales", "Brown"]]
 
-Empty = []
+EMPTY = []
 
 #####################
 # HELPER FUNCTIONS ##
@@ -121,7 +121,7 @@ def test_cross_product():
 
 def test_cross_product_error():
     try:
-        projection(R1, Empty)
+        projection(R1, EMPTY)
     except UnknownAttributeException:
         assert True
 
