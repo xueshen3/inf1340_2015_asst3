@@ -80,9 +80,13 @@ def test_visa_format():
     assert valid_visa_format("CfR6x-XSMVA") == True
 
     # Invalid visa format
+    # Test the visa format with incomplete visa
     assert valid_visa_format("xsmvA") == False
+    # Test the visa with the invalid character
     assert valid_visa_format("&*&%f-fid92") == False
+    # Test the empty visa
     assert valid_visa_format("") == False
+    # Test the visa that is over length 
     assert valid_visa_format("93624768726") == False
 
 
