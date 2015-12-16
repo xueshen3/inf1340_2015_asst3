@@ -15,6 +15,7 @@ from exercise1 import selection, projection, cross_product, UnknownAttributeExce
 # TABLES ##
 ###########
 
+# Create a table for test case purpose
 EMPLOYEES = [["Surname", "FirstName", "Age", "Salary"],
              ["Smith", "Mary", 25, 2000],
              ["Black", "Lucy", 40, 3000],
@@ -23,11 +24,13 @@ EMPLOYEES = [["Surname", "FirstName", "Age", "Salary"],
 
 EMPLOYEES_EMPTY = [["Surname", "FirstName," "Age", "Salary"]]
 
+# Create a table for test case purpose
 MANAGERS = [["Number", "Surname", "Age"],
         [2200, "Rob",35],
         ["Surname", "Katherine", 44],
         [3984, "Sara", 22]]
 
+# Created a table for test case purpose
 R1 = [["Employee", "Department"],
       ["Smith", "sales"],
       ["Black", "production"],
@@ -41,6 +44,7 @@ R3 = [["A", "B"]]
 
 R4 = [["G", "H"]]
 
+# Create a empty string
 EMPTY = []
 
 
@@ -115,6 +119,9 @@ def test_projection():
 
 
 def test_projection_error():
+    """
+    Test if there is no attribute matched found
+    """
     try:
         projection(EMPLOYEES, ["No_Name"])
     except UnknownAttributeException:
@@ -139,6 +146,9 @@ def test_cross_product():
 
 
 def test_cross_product_error():
+    """
+    Test if there is no attribute matched found
+    """
     try:
         projection(R1, EMPTY)
     except UnknownAttributeException:
