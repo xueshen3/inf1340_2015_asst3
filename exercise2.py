@@ -53,19 +53,18 @@ def is_more_than_x_years_ago(x, date_string):
 
 def decide_helper(res_list, tem_list):
     """
-    Decides whether a traveller's entry into Kanadia
-
+    Decides whether a traveller has entry into Kanadia
     :param res_list: The result list pass for storing the final decision of each traveller
     :param tem_list: The decision(s) for each traveller base on the rules
     :return: List of strings. Possible values of strings are:
         "Accept", "Reject", and "Quarantine"
     """
-    for j in tem_list:
+    for element in tem_list:
         # if first element is "Quarantine" then return and store "Quarantine"
-        if j is "Quarantine":
+        if element is "Quarantine":
             return res_list.append("Quarantine")
         # if first element is "Rejected" then return and store "Rejected"
-        elif j is "Rejected":
+        elif element is "Rejected":
             return res_list.append("Rejected")
         # if first element is "Accepted" then return and store "Accepted"
         else:
@@ -79,7 +78,7 @@ def valid_visa_format(visa_code):
     :return: Boolean; True if the format is valid, False otherwise
 
     """
-    # counter for valid substring
+    # Create an empty counter
     substring_counter = 0
     # Check each substring separated by "-"
     for substring in visa_code.split('-'):
@@ -100,7 +99,7 @@ def valid_passport_format(passport_number):
     :return: Boolean; True if the format is valid, False otherwise
     """
     rex = re.match(r'^[a-zA-Z0-9]+(-[a-zA-Z0-9]+)+(-[a-zA-Z0-9]+)+(-[a-zA-Z0-9]+)+(-[a-zA-Z0-9]+)$',passport_number)
-    # valid length must be 29
+    # valid length of passport number must be 29
     if len(passport_number) == 29:
         # if rex is not None, means there find a match
         if rex is not None:
@@ -134,9 +133,8 @@ def valid_date_format(date_string):
         return False
 
 #####################
-# MAIN FUNCTION ##
+### MAIN FUNCTION ###
 #####################
-
 
 def valid_record(record):
     if not record['first_name']:
@@ -159,7 +157,6 @@ def valid_record(record):
     else:
         result = valid_passport_format(record['passport'])and valid_date_format(record['birth_date'])
         return result
-
 
 def decide(input_file, countries_file):
     with open(input_file) as data_file:
