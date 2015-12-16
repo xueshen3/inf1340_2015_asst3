@@ -99,12 +99,12 @@ def valid_passport_format(passport_number):
     :return: Boolean; True if the format is valid, False otherwise
     """
     rex = re.match(r'^[a-zA-Z0-9]+(-[a-zA-Z0-9]+)+(-[a-zA-Z0-9]+)+(-[a-zA-Z0-9]+)+(-[a-zA-Z0-9]+)$',passport_number)
-    # valid length of passport number must be 29
+    # Valid length of passport number must be 29
     if len(passport_number) == 29:
-        # if rex is not None, means there find a match
+        # If rex is not None, means there find a match
         if rex is not None:
             return True
-    # it is None then return False
+    # It is None then return False
         else:
             return False
     else:
@@ -118,9 +118,11 @@ def valid_date_format(date_string):
     :return: Boolean True if the format is valid, False otherwise
     """
     substring_counter = 0
+    # Check each substring separated by "-"
     for substring in date_string.split('-'):
         substring.strip()
         if substring.isdigit():
+            # At the initial substring_counter if substring  have four characters increase the substring_counter
             if substring_counter == 0 and len(substring) == 4:
                 substring_counter += 1
             elif substring_counter > 0 and len(substring) == 2:
