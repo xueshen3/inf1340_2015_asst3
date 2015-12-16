@@ -55,16 +55,23 @@ def test_valid_date_format():
     assert valid_date_format('11-11-11') == False
     assert valid_date_format('2016-January-16') == False
     assert valid_date_format('9768e-ab1de-8bc14-a3c4e-b12de') == False
+    assert valid_date_format('Sep 2015/15') == False
+    assert valid_date_format('2016 Sep 15') == False
 
 
 def test_passport_format():
     # Valid passport format
-    # Test passport consisted of all Upper cases
+    # Test passport consisted of all upper cases
     assert valid_passport_format('JMZ0S-89IA9-OTCLY-MQILJ-P7CTY') == True
     # Test passport consisted of all number
     assert valid_passport_format('12345-12345-67890-00000-00000') == True
     # Test passport consisted of all lower cases
     assert valid_passport_format('abced-76hfg-26bjh-angel-ffabc') == True
+    # Test passport consisted of mixture of upper and lower cases
+    assert valid_passport_format('Abced-HHhfg-BBbjh-Angel-FFabc') == True
+    # Test passport consisted of mixture of number and upper cases
+    assert valid_passport_format('Ab123-HHh78-BBb34-Ang77-FFa12') == True
+
 
     # Invalid passport format
     assert valid_passport_format("JMZ0S-89IA9-OTCLY-MQILJ-") == False
@@ -86,7 +93,7 @@ def test_visa_format():
     assert valid_visa_format("&*&%f-fid92") == False
     # Test the empty visa
     assert valid_visa_format("") == False
-    # Test the visa that is over length 
+    # Test the visa that is over length
     assert valid_visa_format("93624768726") == False
 
 
