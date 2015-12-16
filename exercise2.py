@@ -166,6 +166,11 @@ def valid_record(record):
         return result
 
 def decide(input_file, countries_file):
+    """
+    To load data from Json files for actual game performance using functions created above
+    :param input_file, countries_file, Json_file
+    :return: decisions as Quarantine, Reject or Accept for each output
+    """
     with open(input_file) as data_file:
        cases = json.load(data_file)
     with open(countries_file) as data_file:
