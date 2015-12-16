@@ -20,22 +20,22 @@ def test_returning():
     """
     Travellers are returning to KAN.
     """
-    assert decide("test_returning_citizen.json", "countries.json") ==\
-        ["Accept", "Accept", "Quarantine"]
+    assert decide('test_returning_citizen.json', 'countries.json') ==\
+        ['Accept', 'Accept', 'Quarantine']
 
 
 def test_medical_advisory():
 
     # Check if traveller is coming from or travelling via a country with a medical advisory
-    assert decide("test_medical_advisory.json", "countries.json") ==\
-       ["Quarantine", "Accept", "Quarantine"]
+    assert decide('test_medical_advisory.json', 'countries.json') ==\
+       ['Quarantine', 'Accept', 'Quarantine']
 
 
 def test_lowercase():
 
     # Country code and passport in lowercase should not be rejected
-    assert decide("test_returning_citizen_2.json", "countries.json") ==\
-        ["Accept", "Accept", "Quarantine"]
+    assert decide('test_returning_citizen_2.json', 'countries.json') ==\
+        ['Accept', 'Accept', 'Quarantine']
 
 
 def test_location_check():
