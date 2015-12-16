@@ -98,13 +98,12 @@ def valid_passport_format(passport_number):
     :param passport_number: alpha-numeric string
     :return: Boolean; True if the format is valid, False otherwise
     """
-    rex = re.match(r'^[a-zA-Z0-9]+(-[a-zA-Z0-9]+)+(-[a-zA-Z0-9]+)+(-[a-zA-Z0-9]+)+(-[a-zA-Z0-9]+)$',passport_number)
+    rex = re.match(r'^[a-zA-Z0-9]+(-[a-zA-Z0-9]+)+(-[a-zA-Z0-9]+)+(-[a-zA-Z0-9]+)+(-[a-zA-Z0-9]+)$', passport_number)
     # Valid length of passport number must be 29
     if len(passport_number) == 29:
-        # If rex is not None, means there find a match
+        # If there is a match found, then rex is not empty string
         if rex is not None:
             return True
-    # It is None then return False
         else:
             return False
     else:
