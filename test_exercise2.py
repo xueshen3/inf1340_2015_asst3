@@ -76,3 +76,13 @@ def test_visa_format():
     assert valid_visa_format("&*&%f-fid92") == False
     assert valid_visa_format("") == False
     assert valid_visa_format("93624768726") == False
+
+def test_record_completeness():
+    # If required fields are not in entry record, reject entry
+    assert decide("test_record_completeness.json", "countries.json") ==\
+        ["Reject", "Accept", "Reject"]
+
+def test_visa_validation():
+    # Visa must be less than 2 years old and in valid visa format
+    assert decide("test_visa_validation.json", "countries.json") ==\
+        ["Reject", "Accept", "Reject"]
