@@ -133,6 +133,7 @@ def valid_date_format(date_string):
     else:
         return False
 
+
 #####################
 ### MAIN FUNCTION ###
 #####################
@@ -210,7 +211,7 @@ def decide(input_file, countries_file):
         transit_visa_required = countries[departure_country]['transit_visa_required']
         medical_advisory = countries[departure_country]['medical_advisory']
 
-        # Check if home country
+        # Check if the traveller is return from home country
         if case['home']['country'].upper() == "KAN" and case['entry_reason'].lower() == "returning":
             if medical_advisory or via_medical_advisory:
                 result.append(decisions[0])
