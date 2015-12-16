@@ -231,7 +231,7 @@ def decide(input_file, countries_file):
                         result.append(decisions[1])
                         continue
 
-        #print "accept"
+        #print Accpet for qualified traveller
         result.append(decisions[2])
 
     return result
