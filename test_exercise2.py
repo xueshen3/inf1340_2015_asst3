@@ -59,13 +59,20 @@ def test_valid_date_format():
 
 def test_passport_format():
     # Valid passport format
+    # Test with all Upper cases
     assert valid_passport_format('JMZ0S-89IA9-OTCLY-MQILJ-P7CTY') == True
-    assert valid_passport_format("12345-12345-67890-00000-00000") == True
+    assert valid_passport_format('12345-12345-67890-00000-00000') == True
+    # Test with all lower cases
+    assert valid_passport_format('abced-76hfg-26bjh-angel-ffabc') == True
 
     # Invalid passport format
     assert valid_passport_format("JMZ0S-89IA9-OTCLY-MQILJ-") == False
+    # Test the incomplete passport
     assert valid_passport_format('') == False
-
+    # Test the passport without dashes
+    assert valid_passport_format('JMZ0S89IA9OTCLYMQILJfhdsf') == False
+    # Test the passport with space in between instead of dashes
+    assert valid_passport_format('JMZ0S 89IA9 OTCLY MQILJ 278dd') == False
 
 def test_visa_format():
     # Valid visa format
