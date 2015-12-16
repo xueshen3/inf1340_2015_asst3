@@ -97,6 +97,7 @@ def cross_product(t1, t2):
     # Enter the for loop to combine two table into and store them in result
     for t1_row in t1:
         t2_counter = 0
+        # Enter the for loop to append the new element
         for t2_row in t2:
             if t2_counter > 0:
                 if t1_counter > 0:
