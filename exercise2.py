@@ -228,14 +228,14 @@ def decide(input_file, countries_file):
 
         # Check if visa is required
         if visitor_visa_required == '1' or transit_visa_required == '1':
-            #check visa formatting if wrong REJECT
+            # Check visa formatting if wrong REJECT
             if case.has_key('visa') is True:
                     if is_more_than_x_years_ago(2,case['visa']['date']) is True:
-                        #print 'visa outdated'
+                        # Print 'visa outdated'
                         result.append(decisions[1])
                         continue
 
-        #print Accpet for qualified traveller
+        # Print Accept for qualified traveller
         result.append(decisions[2])
 
     return result
