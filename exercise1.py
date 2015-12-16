@@ -50,22 +50,22 @@ class UnknownAttributeException(Exception):
 
 def selection(t, f):
 
-    # new list created as a result
+    # New list created as a result
     result = []
     for t_list in t:
-        # if rows are in the t_list after being run through the function, append to result
+        # If rows are in the t_list after being run through the function, append to result
         if f(t_list):
             result.append(t_list)
-    # if the result is none or the header only, return None
+    # If the result is none or the header only, return None
     if len(result) == 1 or len(result) == 0:
         return None
-    # otherwise, return the result after removing any duplicates
+    # Otherwise, return the result after removing any duplicates
     else:
         return remove_duplicates(result)
 
 
 def projection(t, r):
-    #Check if t or r are empty list
+    # Check if t or r are empty list
     if not t or not r:
         return None
     result = []
@@ -74,10 +74,12 @@ def projection(t, r):
     for attribute in r:
         if attribute not in t[0]:
             raise UnknownAttributeException("Not in table1 attribute list")
+
     # Enter the for loop to append the attribute
     for attribute in t[0]:
         if attribute in r :
             matching_attributes_index.append(t[0].index(attribute))
+
     # Enter the for loop to append the attribute into the new row
     for row in t:
         filtered_row = []
