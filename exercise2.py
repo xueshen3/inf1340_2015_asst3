@@ -220,13 +220,13 @@ def decide(input_file, countries_file):
                 result.append(decisions[2])
                 continue
 
-        #check is medical advisory is needed
+        # Check is medical advisory is needed
         if medical_advisory or via_medical_advisory:
-            #print "Quarantine"
+            # Print "Quarantine"
             result.append(decisions[0])
             continue
 
-        #Check if visa is required
+        # Check if visa is required
         if visitor_visa_required == '1' or transit_visa_required == '1':
             #check visa formatting if wrong REJECT
             if case.has_key('visa') is True:
