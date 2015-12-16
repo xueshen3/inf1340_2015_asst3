@@ -52,6 +52,7 @@ def selection(t, f):
 
     # New list created as a result
     result = []
+    # Enter the for loop to append the element in the table
     for t_list in t:
         # If rows are in the t_list after being run through the function, append to result
         if f(t_list):
