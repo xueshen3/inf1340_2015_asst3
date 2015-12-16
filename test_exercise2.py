@@ -59,10 +59,11 @@ def test_valid_date_format():
 
 def test_passport_format():
     # Valid passport format
-    # Test with all Upper cases
+    # Test passport consisted of all Upper cases
     assert valid_passport_format('JMZ0S-89IA9-OTCLY-MQILJ-P7CTY') == True
+    # Test passport consisted of all number
     assert valid_passport_format('12345-12345-67890-00000-00000') == True
-    # Test with all lower cases
+    # Test passport consisted of all lower cases
     assert valid_passport_format('abced-76hfg-26bjh-angel-ffabc') == True
 
     # Invalid passport format
