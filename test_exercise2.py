@@ -85,6 +85,7 @@ def test_passport_format():
     # Test the passport with space in between instead of dashes
     assert valid_passport_format('JMZ0S 89IA9 OTCLY MQILJ 278dd') == False
 
+
 def test_visa_format():
     # Valid visa format
     assert valid_visa_format("CfR6x-XSMVA") == True
