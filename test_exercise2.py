@@ -73,9 +73,10 @@ def test_passport_format():
     assert valid_passport_format('AB123-HHH78-BBB34-ANG77-FFA12') == True
     # Test passport consisted of mixture of number and lower cases
     assert valid_passport_format('ab123-hhh88-bbb56-dfd77-ffa12') == True
-    
+
 
     # Invalid passport format
+    # Test the passport with incomplete character
     assert valid_passport_format("JMZ0S-89IA9-OTCLY-MQILJ-") == False
     # Test the incomplete passport
     assert valid_passport_format('') == False
