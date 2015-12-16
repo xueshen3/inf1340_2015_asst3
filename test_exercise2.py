@@ -56,7 +56,6 @@ def test_valid_date_format():
     assert valid_date_format('2016-January-16') == False
     assert valid_date_format('9768e-ab1de-8bc14-a3c4e-b12de') == False
 
-
 def test_passport_format():
     # Valid passport format
     assert valid_passport_format('JMZ0S-89IA9-OTCLY-MQILJ-P7CTY') == True
@@ -65,7 +64,6 @@ def test_passport_format():
     # Invalid passport format
     assert valid_passport_format("JMZ0S-89IA9-OTCLY-MQILJ-") == False
     assert valid_passport_format('') == False
-
 
 def test_visa_format():
     # Valid visa format

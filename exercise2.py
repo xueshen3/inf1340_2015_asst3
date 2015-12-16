@@ -138,9 +138,10 @@ def valid_date_format(date_string):
 ### MAIN FUNCTION ###
 #####################
 
-# The valid passport must contain all of the following information
+
 def valid_record(record):
     """
+    The valid passport must contain all of the following information
     Checks whether a passport number contains all necessary information
     :param record
     :return: Result if the passport is valid, Return False otherwise
@@ -163,9 +164,10 @@ def valid_record(record):
         if valid_visa_format(record['visa']['code']) is False or valid_date_format(record['visa']['date']) is False:
             return False
     else:
-    # Once the passport is confirmed valid, save it in result
+        # Once the passport is confirmed valid, save it in result
         result = valid_passport_format(record['passport'])and valid_date_format(record['birth_date'])
         return result
+
 
 def decide(input_file, countries_file):
     """
@@ -174,30 +176,30 @@ def decide(input_file, countries_file):
     :return: decisions as Quarantine, Reject or Accept for each output
     """
     with open(input_file) as data_file:
-       cases = json.load(data_file)
+        cases = json.load(data_file)
     with open(countries_file) as data_file:
-       countries = json.load(data_file)
+        countries = json.load(data_file)
     decisions = ['Quarantine','Reject', 'Accept']
     result = []
     for case in cases:
         via_medical_advisory= ""
-        #Check if record is completed if not REJECT
+        # Check if record is completed if not REJECT
         if valid_record(case) is False:
             result.append(decisions[1])
             continue
 
-        #Check which country coming back from
+        # Check which country coming back from
         departure_country = case['from']['country'].upper()
-        #The country is not in the dictionary, REJECT traveller
+        # The country is not in the dictionary, REJECT traveller
         if countries.has_key(departure_country) is False:
             result.append(decisions[1])
             continue
 
-        #via country is unknow REJECT
+        # Via country is unknown REJECT
         if case.has_key('via') is True:
             via_country = case['via']['country'].upper()
             if countries.has_key(via_country) is True:
-                #Check is there is medical advisory in via country
+                # Check is there is medical advisory in via country
                 via_medical_advisory = countries[via_country]['medical_advisory']
             else:
                 #print 'Reject via'
