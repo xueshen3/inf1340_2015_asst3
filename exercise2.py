@@ -136,7 +136,13 @@ def valid_date_format(date_string):
 ### MAIN FUNCTION ###
 #####################
 
+# The valid passport must contain all of the following information
 def valid_record(record):
+    """
+    Checks whether a passport number contains all necessary information
+    :param record
+    :return: Result if the passport is valid, Return False otherwise
+    """
     if not record['first_name']:
         return False
     elif not record['last_name']:
@@ -155,6 +161,7 @@ def valid_record(record):
         if valid_visa_format(record['visa']['code']) is False or valid_date_format(record['visa']['date']) is False:
             return False
     else:
+    # Once the passport is confirmed valid, save it in result
         result = valid_passport_format(record['passport'])and valid_date_format(record['birth_date'])
         return result
 
